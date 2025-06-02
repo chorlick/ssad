@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ssad configuration",
+  "type": "object",
+  "required": [
+    "trigger_ports",
+    "sequence_timeout_ms",
+    "inter_knock_timeout_ms",
+    "activation_log_file"
+  ],
+  "properties": {
+    "trigger_ports": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 65535
+      },
+      "description": "scequence of 3 to 5 TCP ports to knock in order."
+    },
+    "sequence_timeout_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "maximum time in milliseconds to complete the knock sequence."
+    },
+    "inter_knock_timeout_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "maximum dely between two valid knocks in milliseconds."
+    },
+    "activation_log_file": {
+      "type": "string",
+      "description": "path to the log file where successful activations are recorded."
+    }
+  },
+  "additionalProperties": false
+}
