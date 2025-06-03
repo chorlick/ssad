@@ -2,6 +2,8 @@
 
 The Stealth Service Activation Daemon is a secure C++ application that listens for a specific sequence of TCP connection attempts ("knocks") from a client. When the correct sequence is received in the correct order and timing, the daemon activates a hidden service and logs the activation. This allows for stealthy control over access to sensitive or internal services.
 
+In order to the run the tests make sure you have the appropriate packages installed.
+
 ---
 
 ## Project Structure
@@ -48,6 +50,7 @@ The Stealth Service Activation Daemon is a secure C++ application that listens f
 Install with:
 ```bash
 sudo apt install nlohmann-json3-dev
+sudo apt install libgtest-dev
 ```
 
 ### Python Dependencies
@@ -98,6 +101,15 @@ sudo ./ssad ./configs/config.json
 Press `Ctrl+C` to shut down the daemon safely.
 
 ---
+
+## Doxygen docs
+
+
+Build the Doxygen docs with
+```bash
+doxygen Doxyfile
+```
+
 
 ## Python Tools
 
