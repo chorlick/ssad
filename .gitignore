@@ -42,3 +42,7 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+
+# Cmake test junk
+CTestTestfile.cmake
+Testing
