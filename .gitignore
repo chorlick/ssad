@@ -1,0 +1,5 @@
+#ignore the binary
+ssd
+
+#and the .o's
+obj/**
