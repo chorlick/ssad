@@ -30,6 +30,8 @@ The Stealth Service Activation Daemon is a secure C++ application that listens f
 │   ├── main.cpp                  # Main entry point here
 │   ├── ssad.cpp                  # Main orchestrator for the Stealth Service Activation Daemon (SSAD).
 │   └── tracker.cpp               # Tracks per-IP port knock sequences and triggers activation logging.
+├── test                          # gtests
+│   └── test_config.cpp           # short test to test the config container
 └── tools                         # Minor tools in python
     ├── knock-knock.py            # Simulates a TCP knock sequence to the daemon in python.
     └── schema_validator.py       # Script used to validate a configuration against the schema.
@@ -79,6 +81,13 @@ pip install jsonschema
 ```bash
 cmake . 
 make
+```
+
+### Build the Test
+```bash
+cmake . 
+make
+ctest .
 ```
 
 ### Run the Daemon
