@@ -22,10 +22,8 @@ private:
     Logger * logger;
     Tracker * tracker = nullptr;
     vector<thread> threads;
-    atomic<bool> running{true};
 
     static SSAD* instance;
-    static void signal_handler(int);
     void port_listener(int port);
 
 public:

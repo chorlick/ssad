@@ -22,7 +22,7 @@ def knock(ip, ports, inter_knock_timeout_ms):
                 s.connect((ip, port))
         except Exception as e:
             logging.warning(f"Port {port} - Connection failed (expected): {e}")
-        time.sleep(inter_knock_timeout_ms / 1000.0)
+        time.sleep( (inter_knock_timeout_ms - 100) / 1000.0)
 
 def setup_logger(verbose: bool):
     logging.basicConfig(

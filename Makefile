@@ -1,4 +1,4 @@
-PROJECT_NAME := ssd
+PROJECT_NAME := ssad
 SRC_DIR := src
 INC_DIR := include
 OBJ_DIR := obj
@@ -29,4 +29,4 @@ $(OBJ_DIR)/%.o: %.cpp $(HDRS)
 clean:
 	rm -f $(OBJS) $(PROJECT_NAME)
 	rm -rf $(OBJ_DIR)
-	rm -rf /var/log/ssad_activations.log
+	sudo rm -rf /var/log/ssad_activations.log

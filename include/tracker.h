@@ -15,7 +15,7 @@
 using namespace std;
 
 /**
- * @class KnockTracker
+ * @class Tracker
  * @brief Tracks per-IP port knock sequences and triggers activation logging.
  *
  * This class handles state management for IP addresses attempting to activate

@@ -1,0 +1,6 @@
+{
+  "trigger_ports": [10001, 10002, 10003],
+  "sequence_timeout_ms": 5000,
+  "inter_knock_timeout_ms": 3000,
+  "activation_log_file": "/var/log/ssad_activations.log"
+}
