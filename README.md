@@ -77,12 +77,13 @@ pip install jsonschema
 
 ### Build the Daemon
 ```bash
+cmake . 
 make
 ```
 
 ### Run the Daemon
 ```bash
-./ssad_daemon configuration.json
+sudo ./ssad ./configs/config.json
 ```
 
 Press `Ctrl+C` to shut down the daemon safely.

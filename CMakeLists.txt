@@ -19,3 +19,19 @@ target_link_libraries(ssad pthread)
 # You must install nlohmann/json or use FetchContent if desired
 find_package(nlohmann_json REQUIRED)
 target_link_libraries(ssad nlohmann_json::nlohmann_json)
+
+
+# GoogleTest setup
+enable_testing()
+find_package(GTest REQUIRED)
+
+# Unit test: Config
+add_executable(test_config
+    test/test_config.cpp
+    src/config.cpp
+    src/logger.cpp
+)
+
+target_include_directories(test_config PRIVATE include)
+target_link_libraries(test_config GTest::GTest GTest::Main pthread)
+add_test(NAME ConfigTest COMMAND test_config)
