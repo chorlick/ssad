@@ -8,27 +8,32 @@ The Stealth Service Activation Daemon is a secure C++ application that listens f
 
 ```
 ├── C++ Take-Home Coding Challenge.pdf
-├── Makefile                # Makefile (try make all)
-├── README.md               # this file
-├── configs                 # default sample configurations
-│   ├── config.empty.json   # "bad" config, used for testing
-│   └── config.json         # default config
-├── include                 # includees
-│   ├── config.h            # Loads and validates daemon configuration from a JSON file.
-│   ├── logger.h            # Thread-safe logger for writing timestamped log messages to a file.
-│   ├── ssad.h              # Main orchestrator for the Stealth Service Activation Daemon (SSAD).
-│   └── tracker.h           # Tracks per-IP port knock sequences and triggers activation logging.
-├── schemas                 # JSON schemas
-│   └── config.schema.json  # Default schema
-├── src                     # Source directory
-│   ├── logger.cpp
-│   ├── main.cpp            # Main entry point here
-│   └── ssad.cpp
-└── tools                   # Minor tools in python
-    ├── knock-knock.py      # Simulates a TCP knock sequence to the daemon in python.
-    └── schema_validator.py # Script used to validate a configuration against the schema.
+├── Makefile                      # Makefile (try make all)
+├── README.md                     # this file
+├── configs                       # default sample configurations
+│   ├── config.empty.json         # "bad" config, used for testing
+│   └── config.json               # default config
+│   ├── config.long-knock.json    # this configuration file for a "long knock timer"
+│   └── config.out-of-order.json  # configuration file for knocking out of order
+├── include                       # includees
+│   ├── common.h                  # common header file (mainly used for the running flag to extern to other translation units)
+│   ├── config.h                  # Loads and validates daemon configuration from a JSON file.
+│   ├── logger.h                  # Thread-safe logger for writing timestamped log messages to a file.
+│   ├── knockstate.h              # simple data strcuture used to track state of knocks as they come in
+│   ├── ssad.h                    # Main orchestrator for the Stealth Service Activation Daemon (SSAD).
+│   └── tracker.h                 # Tracks per-IP port knock sequences and triggers activation logging.
+├── schemas                       # JSON schemas
+│   └── config.schema.json        # Default schema
+├── src                           # Source directory
+│   ├── config.cpp                # Loads and validates daemon configuration from a JSON file.
+│   ├── logger.cpp                # Thread-safe logger for writing timestamped log messages to a file.
+│   ├── main.cpp                  # Main entry point here
+│   ├── ssad.cpp                  # Main orchestrator for the Stealth Service Activation Daemon (SSAD).
+│   └── tracker.cpp               # Tracks per-IP port knock sequences and triggers activation logging.
+└── tools                         # Minor tools in python
+    ├── knock-knock.py            # Simulates a TCP knock sequence to the daemon in python.
+    └── schema_validator.py       # Script used to validate a configuration against the schema.
 ```
-
 ---
 
 ## Requirements
