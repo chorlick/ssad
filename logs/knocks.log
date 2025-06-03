@@ -1,0 +1,15 @@
+[2025-06-02 13:54:33] INFO: Knocking on 127.0.0.1:10001
+[2025-06-02 13:54:33] WARNING: Port 10001 - Connection failed (expected): [Errno 111] Connection refused
+[2025-06-02 13:54:34] INFO: Knocking on 127.0.0.1:10002
+[2025-06-02 13:54:34] WARNING: Port 10002 - Connection failed (expected): [Errno 111] Connection refused
+[2025-06-02 13:54:35] INFO: Knocking on 127.0.0.1:10003
+[2025-06-02 13:54:35] WARNING: Port 10003 - Connection failed (expected): [Errno 111] Connection refused
+[2025-06-02 13:55:02] INFO: Knocking on 127.0.0.1:10001
+[2025-06-02 13:55:06] INFO: Knocking on 127.0.0.1:10002
+[2025-06-02 13:55:07] INFO: Knocking on 127.0.0.1:10003
+[2025-06-02 13:57:17] INFO: Knocking on 127.0.0.1:10001
+[2025-06-02 13:57:18] INFO: Knocking on 127.0.0.1:10002
+[2025-06-02 13:57:19] INFO: Knocking on 127.0.0.1:10003
+[2025-06-02 14:00:21] INFO: Knocking on 127.0.0.1:10001
+[2025-06-02 14:00:22] INFO: Knocking on 127.0.0.1:10002
+[2025-06-02 14:00:27] INFO: Knocking on 127.0.0.1:10003
