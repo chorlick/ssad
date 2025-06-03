@@ -1,10 +1,24 @@
 
 
+
 #include "config.h"
 
+#ifdef __linux__
+#define DEFAULT_PATH ("/var/log/ssad_activations.log")
+#endif
+
 bool Config::load(const string& path) {
+    
+    if(!std::filesystem::exists(path)) {
+        cerr << "no such file for config_path " << path << endl;
+        return false;
+    }
+
     ifstream f(path);
-    if (!f.is_open()) return false;
+    if (!f.is_open()) {
+        cerr << "unable to load configuration file for " << path << endl;
+        return false;
+    } 
 
     nlohmann::json j;
     try {
@@ -15,7 +29,7 @@ bool Config::load(const string& path) {
         }
 
         if (!j.contains("sequence_timeout_ms") || !j["sequence_timeout_ms"].is_number_integer()) {
-            throw runtime_error("configuration file must include sequence_timeout_m and should be ints (0 - 65k). check the shcema file");
+            throw runtime_error("configuration file must include sequence_timeout_ms and should be ints (0 - 65k). check the shcema file");
         }
 
         if (!j.contains("inter_knock_timeout_ms") || !j["inter_knock_timeout_ms"].is_number_integer()) {
@@ -41,8 +55,8 @@ bool Config::load(const string& path) {
         //we had to do something funny here...if it wasnt able to load the config
         //file we dont really know where to log it. lets do a hail mary and throw
         //it at the default location
-        Logger logger("/var/log/ssad_activations.log");  
-        logger.write("ERROR", "%s", e.what());   
+        Logger logger(DEFAULT_PATH);  
+        logger.write(LOG_LEVEL::ERROR, "%s", e.what());   
         return false;
     }
 

@@ -1,0 +1,29 @@
+# Doxyfile
+
+# Input
+INPUT                  = src include mainpage.md
+FILE_PATTERNS          = *.cpp *.h
+
+# Recursion into subdirectories
+RECURSIVE              = YES
+
+# Output directory
+OUTPUT_DIRECTORY       = docs
+
+# Use Markdown if needed
+MARKDOWN_SUPPORT       = YES
+
+# Project info (optional)
+PROJECT_NAME           = "SSAD"
+PROJECT_BRIEF          = "Port-knocking activation tracker"
+
+# Enable extraction from all comments
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+# Generate HTML docs
+GENERATE_HTML          = YES
+
+# Optional: generate LaTeX (PDF) docs
+GENERATE_LATEX         = NO

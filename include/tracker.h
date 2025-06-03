@@ -30,45 +30,51 @@ private:
     unordered_map<string, KnockState> state_map;
     mutex state_mutex;
 
-    void log_activation(const string& ip) const {
-        logger.write("INFO", "service activation <%s>", ip.c_str());
-    }
+    /**
+    * @brief Logs a successful service activation for a given IP address.
+    *
+    * This function is called when a valid port knock sequence has been completed.
+    * It logs the activation event using the logger instance.
+    *
+    * @param ip The IP address that completed the valid knock sequence and triggered activation.
+    */
+    void log_activation(const string& ip) const;
 
 public:
-    Tracker(const Config& cfg, Logger& log) : config(cfg), logger(log)  {
-        
-    }
 
-    ~Tracker() {
-    }
+    /**
+    * @brief Constructs a Tracker object with the given configuration and logger.
+    *
+    * Initializes the port knock tracking system using the specified configuration parameters
+    * and logger instance for recording events.
+    *
+    * @param cfg A reference to the configuration object containing knock sequence settings.
+    * @param log A reference to the logger used for logging activation and debug messages.
+    */
+    Tracker(const Config& cfg, Logger& log) : config(cfg), logger(log)  {}
 
-    void record_knock(const string& ip, int port) {
-        lock_guard<mutex> lock(state_mutex);
-        auto now = chrono::steady_clock::now();
+    /**
+    * @brief Destroys the Tracker object.
+    *
+    * Cleans up any resources held by the Tracker. This destructor is trivial as no
+    * dynamic memory management is required.
+    */
+    ~Tracker() {}
 
-        auto& state = state_map[ip];
+    /**
+    * @brief Processes a port knock from a specific IP address and updates the knock sequence state.
+    *
+    * This function handles incoming port knocks and determines whether the configured port knock 
+    * sequence has been completed in time and in the correct order. If a valid sequence is detected, 
+    * it triggers the activation process for the IP address and removes the tracking state.
+    *
+    * @param ip The IP address from which the port knock is received.
+    * @param port The port that was knocked.
+    * @return std::lock_guard<std::mutex> A lock guard that holds the state mutex for thread-safe access.
+    *
+    */
+    void record_knock(const string& ip, int port);
 
-        if (state.index == 0 || chrono::duration_cast<chrono::milliseconds>(now - state.start_time).count() > config.sequence_timeout_ms) {
-            state.index = 0;
-            state.start_time = now;
-        }
-
-        if (state.index > 0 && chrono::duration_cast<chrono::milliseconds>(now - state.last_knock).count() > config.inter_knock_timeout_ms) {
-            state.index = 0;
-        }
-
-        if (port == config.trigger_ports[state.index]) {
-            state.last_knock = now;
-            state.index++;
-
-            if (state.index == config.trigger_ports.size()) {
-                log_activation(ip);
-                state_map.erase(ip);
-            }
-        } else {
-            state.index = 0;
-        }
-    }
 };
 
 #endif

@@ -10,7 +10,7 @@
 void SSAD::port_listener(int port) {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
-        logger->write("ERROR", "Error opening socket on port %d", port);
+        logger->write(LOG_LEVEL::ERROR, "Error opening socket on port %d", port);
         return;
     }
 
@@ -23,7 +23,7 @@ void SSAD::port_listener(int port) {
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
     if (bind(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
-        logger->write("ERROR", "Error binding on port %d", port);
+        logger->write(LOG_LEVEL::ERROR, "Error binding on port %d", port);
         close(sockfd);
         return;
     }
@@ -50,7 +50,7 @@ int SSAD::run(const string& config_path) {
         return 1;
     }
 
-    logger = new Logger(config.log_file);
+    logger = make_unique<Logger>(config.log_file);
     Tracker tracker(config, *logger);
     vector<thread> listeners;
 
@@ -63,8 +63,16 @@ int SSAD::run(const string& config_path) {
             addr.sin_port = htons(port);
             addr.sin_addr.s_addr = INADDR_ANY;
 
-            bind(sock, (sockaddr*)&addr, sizeof(addr));
-            listen(sock, 5);
+            if (bind(sock, (sockaddr*)&addr, sizeof(addr)) < 0) {
+                log->write(LOG_LEVEL::ERROR, "Bind failed on port %d", port);
+                close(sock);
+                return;
+            }
+            if (listen(sock, 5) < 0) {
+                log->write(LOG_LEVEL::ERROR, "Listen failed on port %d", port);
+                close(sock);
+                return;
+            }
             unordered_map<string, chrono::steady_clock::time_point> knock_map;
 
             while (running) {

@@ -100,7 +100,7 @@ python3 knocker.py 127.0.0.1 configuration.json -v
 ### `validate_config.py` - Validate Config JSON
 Ensures your `configuration.json` matches the schema.
 ```bash
-python3 validate_config.py ssad_config.schema.json configuration.json
+python3 validate_config.py schema/ssad_config.schema.json configuration.json
 ```
 
 ---
