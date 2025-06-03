@@ -25,7 +25,7 @@ The Stealth Service Activation Daemon is a secure C++ application that listens f
 │   ├── main.cpp            # Main entry point here
 │   └── ssad.cpp
 └── tools                   # Minor tools in python
-    ├── knocks.py           # Simulates a TCP knock sequence to the daemon in python.
+    ├── knock-knock.py      # Simulates a TCP knock sequence to the daemon in python.
     └── schema_validator.py # Script used to validate a configuration against the schema.
 ```
 

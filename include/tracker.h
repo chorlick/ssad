@@ -9,6 +9,8 @@
 #include <iostream>
 
 #include "config.h"
+#include "knockstate.h"
+#include "logger.h"
 
 using namespace std;
 
@@ -22,26 +24,23 @@ using namespace std;
  */
 class Tracker {
 private:
-    struct KnockState {
-        size_t index = 0;
-        chrono::steady_clock::time_point start_time;
-        chrono::steady_clock::time_point last_knock;
-    };
 
     const Config& config;
+    Logger& logger;
     unordered_map<string, KnockState> state_map;
     mutex state_mutex;
 
     void log_activation(const string& ip) const {
-        ofstream log(config.log_file, ios::app);
-        if (log) {
-            auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
-            log << "[" << put_time(localtime(&now), "%F %T") << "] Service activated for IP: " << ip << "\n";
-        }
+        logger.write("INFO", "service activation <%s>", ip.c_str());
     }
 
 public:
-    Tracker(const Config& cfg) : config(cfg) {}
+    Tracker(const Config& cfg, Logger& log) : config(cfg), logger(log)  {
+        
+    }
+
+    ~Tracker() {
+    }
 
     void record_knock(const string& ip, int port) {
         lock_guard<mutex> lock(state_mutex);

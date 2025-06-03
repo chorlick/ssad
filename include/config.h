@@ -62,26 +62,13 @@ public:
             log_file = j["activation_log_file"].get<string>();
 
         } catch (const exception& e) {
-            log_error(e.what());
-            cerr << "error: " << e.what() << endl;
+            Logger logger("/var/log/ssad_activations.log");  
+            logger.write("ERROR", "%s", e.what());   
             return false;
         }
 
         return true;
     }
-
-private:
-    void log_error(const string& message) const {
-        Logger logger("/var/log/ssad_activations.log");
-        ofstream log("/var/log/ssad_activations.log", ios::app);
-        ostringstream oss;
-
-        if (log) {
-            auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
-            oss <<  "[" << put_time(localtime(&now), "%F %T") << "] ERROR: " << message << "\n";
-            logger.write("ERROR", oss.str());
-        }
-    }    
 };
 
 #endif

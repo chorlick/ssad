@@ -19,8 +19,8 @@
 class SSAD {
 private:
     Config config;
+    Logger * logger;
     Tracker * tracker = nullptr;
-    Logger * logger = nullptr;
     vector<thread> threads;
     atomic<bool> running{true};
 
@@ -30,7 +30,15 @@ private:
 
 public:
     SSAD() { instance = this; }
-    ~SSAD() { delete tracker; }
+    ~SSAD() { 
+        if(tracker) {
+            delete tracker; 
+        }
+
+        if(logger) {
+            delete logger;
+        }
+    }
     int run(const string& config_path);
 };
 

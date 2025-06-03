@@ -8,7 +8,7 @@
 #include <thread>
 #include <mutex>
 #include <chrono>
-#include <csignal>
+
 #include <atomic>
 #include <netinet/in.h>
 #include <sys/socket.h>

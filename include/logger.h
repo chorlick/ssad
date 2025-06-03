@@ -25,7 +25,7 @@ private:
 
 public:
     Logger(const string& file_path) : path(file_path) {}
-    void write(const string& level, const string& message) const;
+    void write(const char* level, const char* format, ...) const;
 };
 
 #endif
